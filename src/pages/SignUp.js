@@ -3,6 +3,8 @@ import FormInput from "../components/FormInput";
 import Classes from'./../styles/signup.module.css'
 import { register } from "../features/userSlice";
 import { useDispatch } from "react-redux";
+import store from './../features/store';
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [values, setValues] = useState({ 
@@ -12,7 +14,13 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  store.subscribe(()=> {
+    const storeData = store.getState();
+    if(storeData.user.authenticate)
+       return navigate("/home");
+});
 
   const inputs = [
     {
@@ -67,15 +75,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log( values)
     dispatch(register(values));
-    // setValues({
-    //   username: "",
-    //   email: "",
-    //   birthday: "",
-    //   password: "",
-    //   confirmPassword: "",
-    // })
   };
 
   const onChange = (e) => {

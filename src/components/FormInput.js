@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './../styles/formInput.css';
+import  Classes from './../styles/formInput.module.css';
 
 const FormInput = (props) => {
   const [focused, setFocused] = useState(false);
@@ -10,9 +10,10 @@ const FormInput = (props) => {
   };
 
   return (
-    <div className="formInput">
-      <label>{label}</label>
+    <div className={Classes.formInput}>
+      <label className={Classes.label}>{label}</label>
       <input
+        className={Classes.input}
         {...inputProps}
         onChange={onChange}
         onBlur={handleFocus}
@@ -21,7 +22,7 @@ const FormInput = (props) => {
         }
         focused={focused.toString()}
       />
-      <span>{errorMessage}</span>
+      <span className={Classes.span}>{errorMessage}</span>
     </div>
   );
 };
